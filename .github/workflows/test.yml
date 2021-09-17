@@ -33,7 +33,7 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-${{ matrix.rust-toolchain }}
       - name: Run
-        run: ./test
+        run: DOC=1 ./test
       - uses: actions/upload-artifact@v2
         with:
           name: cargo-${{ matrix.rust-toolchain }}-test-logs
