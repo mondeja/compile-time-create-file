@@ -1,7 +1,11 @@
 #!/usr/bin/env sh
 
 testCargo() {
-  NO_COLOR=1 cargo test --lib > cargo-test.log 2> cargo-test.log
+  testopt="--lib"
+  if [ "$DOC" -eq 1 ]; then
+    testopt=""
+  fi
+  NO_COLOR=1 cargo test "$testopt" > cargo-test.log 2> cargo-test.log
   assertEquals "0" "$?"
 }
 
