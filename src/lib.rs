@@ -1,3 +1,23 @@
+//! Create files and directories at compile time using a procedural macro in Rust.
+//!
+//! # Example
+//!
+//! ```rust
+//! use compile_time_create_file::create_file;
+//!
+//! create_file!(
+//!     "migrations/users.sql",
+//!     "create table if not exists users (
+//!     id serial,
+//!     username varchar(128) not null,
+//!     password varchar(512) not null,
+//!     email varchar(256) not null,
+//!     enabled boolean not null default true
+//! );
+//! "
+//! );
+//! ```
+
 use proc_macro::TokenStream;
 use std::env::current_dir;
 use std::fs::{create_dir_all, File};
@@ -51,7 +71,7 @@ impl Parse for FilenameContent {
 ///
 /// # Examples
 ///
-/// ```
+/// ```rust
 /// use compile_time_create_file::create_file;
 ///
 /// // create a file (migrations/ will be created if not exists)

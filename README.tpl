@@ -1,37 +1,19 @@
-# compile-time-create-file
+# {{crate}}
 
 [![Documentation][docs-badge]][docs-link]
 [![crates.io][crate-badge]][crate-link]
 [![CI status][ci-badge]][ci-link]
 
-Create files and directories at compile time using a procedural macro in Rust.
-
-## Example
-
-```rust
-use compile_time_create_file::create_file;
-
-create_file!(
-    "migrations/users.sql",
-    "create table if not exists users (
-    id serial,
-    username varchar(128) not null,
-    password varchar(512) not null,
-    email varchar(256) not null,
-    enabled boolean not null default true
-);
-"
-);
-```
+{{readme}}
 
 ## Installation
 
-Add `compile-time-create-file = "0.0.1"` under your development
+Add `compile-time-create-file = "{{version}}"` under your development
 dependencies:
 
 ```toml
 [dev-dependencies]
-compile-time-create-file = "0.0.1"
+compile-time-create-file = "{{version}}"
 ```
 
 [docs-badge]: https://img.shields.io/docsrs/compile-time-create-file

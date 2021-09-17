@@ -16,6 +16,7 @@ exclude = [
     "test",
     ".editorconfig",
     ".pre-commit-config.yaml",
+    "README.tpl",
 ]
 
 
@@ -28,3 +29,4 @@ trybuild = "1.0.25"
 [lib]
 proc-macro = true
 name = "compile_time_create_file"
+path = "src/lib.rs"
