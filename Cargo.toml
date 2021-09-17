@@ -17,6 +17,7 @@ exclude = [
     ".editorconfig",
     ".pre-commit-config.yaml",
     "README.tpl",
+    ".bumpversion.cfg"
 ]
 
 
