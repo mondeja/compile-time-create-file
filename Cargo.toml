@@ -1,6 +1,6 @@
 [package]
 name = "compile-time-create-file"
-version = "0.0.2"
+version = "0.1.0"
 edition = "2018"
 description = "Create files and directories at compile time using a procedural macro in Rust."
 license-file = "LICENSE"
