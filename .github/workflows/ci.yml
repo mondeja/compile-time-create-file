@@ -52,16 +52,11 @@ jobs:
         with:
           profile: minimal
           toolchain: stable
-      - name: Configure publish
-        run: |
-          git config --local user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git config --local user.name github-actions[bot]
-          cargo install cargo-release
-          cargo login ${{ secrets.CRATES_TOKEN }}
       - name: Publish
         run: |
-          cargo release "$(< Cargo.toml grep version | head -n 1 | cut -d '"' -f2)" --no-confirm --skip-push
-          cargo release --no-confirm --skip-push --execute
+          cargo login ${{ secrets.CRATES_TOKEN }}
+          cargo publish -v --dry-run
+          cargo publish
   release:
     name: Release
     needs: publish
