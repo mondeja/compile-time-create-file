@@ -36,6 +36,47 @@ impl Parse for FilenameContent {
     }
 }
 
+/// Create a file or directory using a relative or absolute path, creating non existent
+/// parent subdirectories of the target file and expanding to nothing. If file or directory
+/// already exists, doesn't overwrites it.
+///
+/// It takes, at least, one argument:
+///
+/// 1. (`&str`) Path to the file or directory to create. If the literal string starts with relative
+///    path syntax like `../` or `./../` the created node is relative to the current directory
+///    from which the build is triggered. If you want to create a directory you must end the
+///    string with a path separator character like `/`.
+/// 2. (`Option<&str>`) Content for the created file. If the path is pointing to a directory, this
+///    argument will be ignored.
+///
+/// # Examples
+///
+/// ```
+/// use compile_time_create_file::create_file;
+///
+/// // create a file (migrations/ will be created if not exists)
+/// create_file!(
+///     "migrations/users.sql",
+///     "create table if not exists users (
+///     id serial,
+///     username varchar(128) not null,
+///     password varchar(512) not null,
+///     email varchar(256) not null,
+///     enabled boolean not null default true
+/// );
+/// "
+/// );
+///
+/// // create a directory outside of your project
+/// create_file!("../created-outside-of-your-project/");
+///
+/// // create an empty file
+/// create_file!("./../created-outside-of-your-project.txt");  // or:
+/// create_file!("../created-outside-of-your-project.txt", "");
+///
+/// // create a directory by absolute path
+/// create_file!("/tmp/my-crazy-app-logs-directory/");
+/// ```
 #[proc_macro]
 pub fn create_file(tokens: TokenStream) -> TokenStream {
     // parse arguments list
@@ -88,5 +129,6 @@ mod tests {
         t.pass("ui/path-to-absolute-directory.rs");
         t.pass("ui/empty-file-one-arg.rs");
         t.pass("ui/empty-file-string-content.rs");
+        t.compile_fail("ui/empty-file-null-content.rs");
     }
 }

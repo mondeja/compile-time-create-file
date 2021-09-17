@@ -3,3 +3,4 @@ Cargo.lock
 wip/
 shunit2
 cargo-test.log
+migrations/
