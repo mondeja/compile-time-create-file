@@ -1,7 +1,0 @@
-error: wrong number of arguments: 2 expected
- --> $DIR/one-argument.rs:4:5
-  |
-4 |     create_file!("foo.txt");
-  |     ^^^^^^^^^^^^^^^^^^^^^^^^
-  |
-  = note: this error originates in the macro `create_file` (in Nightly builds, run with -Z macro-backtrace for more info)

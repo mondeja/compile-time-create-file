@@ -1,5 +1,5 @@
 [package]
-name = "create-file-macro"
+name = "compile-time-create-file"
 version = "0.1.0"
 edition = "2018"
 
@@ -13,4 +13,4 @@ trybuild = "1.0.25"
 
 [lib]
 proc-macro = true
-name = "create_file_macro"
+name = "compile_time_create_file"

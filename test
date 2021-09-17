@@ -1,0 +1,112 @@
+#!/usr/bin/env sh
+
+testCargo() {
+  NO_COLOR=1 cargo test --lib > cargo-test.log 2> cargo-test.log
+  assertEquals "0" "$?"
+}
+
+assertFile() {
+  expected_file="$1"
+  expected_content="$2"
+
+  assertTrue "[ -f $expected_file ]"
+  assertEquals \
+    "$expected_content" \
+    "$(cat --show-ends "$expected_file" | tr -d '\r\n')"
+}
+
+testOneLine() {
+  assertFile \
+    "target/tests/compile-time-create-file/one-line.expect.txt" \
+    "foo bar baz"
+}
+
+testMultipleLines() {
+  assertFile \
+    "target/tests/compile-time-create-file/multiple-lines.expect.txt" \
+    "foo\$bar\$baz"
+}
+
+testMultipleLinesEndNewline() {
+  assertFile \
+    "target/tests/compile-time-create-file/multiple-lines-end-newline.expect.txt" \
+    "foo\$bar\$baz\$"
+}
+
+testNotOverwriteFile() {
+  assertFile \
+    "target/tests/not-overwrite-file.expect.txt" \
+    "This file shouldn't be overwritten!\$"
+}
+
+testNotOverwriteDirectory() {
+  assertTrue "[ -f target/tests/not-overwrite-directory/foo.expect.txt ]"
+}
+
+testRelativePath() {
+  assertFile \
+    "target/tests/relative-path.expect.txt" \
+    "foo bar baz qux"
+}
+
+testPathToSubdirectory() {
+  assertTrue "[ -d target/tests/compile-time-create-file/bar/ ]"
+}
+
+testPathToFileInSubdirectory() {
+  assertFile \
+    "target/tests/compile-time-create-file/foo/path-to-file-in-subdirectory.expect.txt" \
+    "Hello from subdirectory!"
+}
+
+testPathToAbsoluteFile() {
+  assertFile \
+    "/tmp/path-to-absolute-file.expect.txt" \
+    "Hello from absolute file!"
+}
+
+testPathToAbsoluteDirectory() {
+  assertTrue "[ -d /tmp/path-to-absolute-directory/ ]"
+}
+
+testEmptyFileOneArg() {
+  assertFile \
+    "target/tests/compile-time-create-file/empty-file-one-arg.expect.txt" \
+    ""
+}
+
+testEmptyFileStringContent() {
+  assertFile \
+    "target/tests/compile-time-create-file/empty-file-string-content.expect.txt" \
+    ""
+}
+
+oneTimeSetUp() {
+  # create file before 'cargo test' which shouldn't be overwritten by the macro
+  if [ ! -d "target/tests" ]; then
+    mkdir -p target/tests
+  fi
+
+  # remove previous temporal absolute files
+  rm -f /tmp/path-to-absolute-file.expect.txt
+  rm -rf /tmp/path-to-absolute-directory/
+
+  # (note that is created outside of the target/tests/compile-time-create-file folder)
+  echo "This file shouldn't be overwritten!" \
+    > target/tests/not-overwrite-file.expect.txt
+
+  mkdir target/tests/not-overwrite-directory/
+  touch target/tests/not-overwrite-directory/foo.expect.txt
+}
+
+prepare() {
+  if [ ! -f "shunit2" ]; then
+    curl -sSL https://raw.githubusercontent.com/kward/shunit2/master/shunit2 \
+      -o shunit2
+  fi
+
+  # rebuild target/tests crate
+  rm -rf target/tests
+}
+
+prepare && . ./shunit2
