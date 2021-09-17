@@ -1,12 +1,12 @@
 [package]
 name = "compile-time-create-file"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2018"
 description = "Create files and directories at compile time using a procedural macro in Rust."
 license-file = "LICENSE"
 authors = ["Álvaro Mondéjar <mondejar1994@gmail.com>"]
 
-repository = "https://github.com/de-vri-es/rust-compile-time-run"
+repository = "https://github.com/mondeja/compile-time-create-file"
 readme = "README.md"
 keywords = ["build", "create", "file"]
 categories = ["development-tools", "development-tools::build-utils"]
