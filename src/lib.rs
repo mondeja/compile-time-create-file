@@ -27,7 +27,7 @@ use std::path::{is_separator, PathBuf};
 use syn::parse::{Parse, ParseStream};
 use syn::punctuated::Punctuated;
 use syn::token::Comma;
-use syn::{parse_macro_input, LitStr, Result}; //Error
+use syn::{parse_macro_input, LitStr, Result};
 
 struct FilenameContent {
     filename: String,
