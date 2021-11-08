@@ -25,7 +25,7 @@ exclude = [
 syn = "^1"
 
 [dev-dependencies]
-trybuild = "1.0.25"
+trybuild = "1.0.52"
 
 [lib]
 proc-macro = true
