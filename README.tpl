@@ -20,5 +20,5 @@ compile-time-create-file = "{{version}}"
 [docs-link]: https://docs.rs/compile-time-create-file
 [crate-badge]: https://img.shields.io/crates/v/compile-time-create-file
 [crate-link]: https://crates.io/crates/compile-time-create-file
-[ci-badge]: https://img.shields.io/github/workflow/status/mondeja/compile-time-create-file/CI?label=tests
+[ci-badge]: https://img.shields.io/github/actions/workflow/status/mondeja/compile-time-create-file/ci.yml?branch=master&label=tests
 [ci-link]: https://github.com/mondeja/compile-time-create-file/actions
